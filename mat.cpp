@@ -18,7 +18,7 @@ namespace ariel
         return mat;
     }
 
-     void fillMatrix(int** mat, int rows, int cols)
+    void fillMatrix(int **mat, int rows, int cols)
     {
         int currentCol = 0;
 
@@ -37,7 +37,7 @@ namespace ariel
         }
     }
 
-    void fillMatrixReverse(int** mat, int rows, int cols)
+    void fillMatrixReverse(int **mat, int rows, int cols)
     {
         int p = 0;
 
@@ -56,20 +56,24 @@ namespace ariel
         }
     }
 
-    void printMatrix(int **mat, int rows, int cols)
-    {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-                cout << mat[i][j] << " ";
-            cout << endl;
-        }
-    }
+    // void printMatrix(int **mat, int rows, int cols)
+    // {
+    //     for (int i = 0; i < rows; i++)
+    //     {
+    //         for (int j = 0; j < cols; j++)
+    //         {
+    //             cout << mat[i][j] << " ";
+    //         }
+    //         cout << endl;
+    //     }
+    // }
 
     int getMin(int x, int y)
     {
         if (x > y)
+        {
             return y;
+        }
         return x;
     }
 
@@ -78,8 +82,12 @@ namespace ariel
         int **mat = getMatrix(rows, cols);
 
         for (int i = 0; i < rows; i++)
+        {
             for (int j = 0; j < cols; j++)
+            {
                 mat[i][j] = getMin(mat1[i][j], mat2[i][j]);
+            }
+        }
 
         return mat;
     }
@@ -87,22 +95,27 @@ namespace ariel
     void modBy2(int **mat, int rows, int cols)
     {
         for (int i = 0; i < rows; i++)
+        {
             for (int j = 0; j < cols; j++)
+            {
                 mat[i][j] %= 2;
+            }
+        }
     }
 
     void freeMatrix(int **mat, int rows)
     {
         for (int i = 0; i < rows; i++)
         {
-            delete [] mat[i];
+            delete[] mat[i];
         }
-        delete [] mat;
+        delete[] mat;
     }
 
     string mat(int cols, int rows, char sample1, char sample2)
     {
-        if ( cols % 2 == 0 || rows %2 == 0){
+        if (cols % 2 == 0 || rows % 2 == 0)
+        {
             throw invalid_argument("Mat size is always odd");
         }
 
@@ -124,9 +137,13 @@ namespace ariel
             for (int j = 0; j < cols; j++)
             {
                 if (mat[i][j] == 0)
+                {
                     output += sample1;
+                }
                 else
+                {
                     output += sample2;
+                }
             }
             output += '\n';
         }
