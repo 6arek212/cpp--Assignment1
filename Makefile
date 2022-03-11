@@ -41,4 +41,4 @@ tidy:
 
 clean:
 	rm -f *.o test
-	rm -f StudentTest*.cpp
+	rm -f StudentTest*.cpp demo
