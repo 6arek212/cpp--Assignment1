@@ -1,24 +1,15 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 namespace ariel
 {
 
-    int **getMatrix(int rows, int cols)
-    {
-        int **mat = nullptr;
+    const int simMax = 126;
+    const int simMin = 33;
 
-        mat = new int *[rows];
-        for (int i = 0; i < rows; i++)
-        {
-            mat[i] = new int[cols];
-        }
-
-        return mat;
-    }
-
-    void fillMatrix(int **mat, int rows, int cols)
+    void fillMatrix(vector<vector<int>> &mat, int rows, int cols)
     {
         int currentCol = 0;
 
@@ -37,7 +28,7 @@ namespace ariel
         }
     }
 
-    void fillMatrixReverse(int **mat, int rows, int cols)
+    void fillMatrixReverse(vector<vector<int>> &mat, int rows, int cols)
     {
         int p = 0;
 
@@ -56,17 +47,17 @@ namespace ariel
         }
     }
 
-    // void printMatrix(int **mat, int rows, int cols)
-    // {
-    //     for (int i = 0; i < rows; i++)
-    //     {
-    //         for (int j = 0; j < cols; j++)
-    //         {
-    //             cout << mat[i][j] << " ";
-    //         }
-    //         cout << endl;
-    //     }
-    // }
+    void printMatrix(vector<vector<int>> &mat, int rows, int cols)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                cout << mat[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
 
     int getMin(int x, int y)
     {
@@ -77,9 +68,9 @@ namespace ariel
         return x;
     }
 
-    int **mergeMatrixByMin(int **mat1, int **mat2, int rows, int cols)
+    vector<vector<int>> mergeMatrixByMin(vector<vector<int>> &mat1, vector<vector<int>> &mat2, int rows, int cols)
     {
-        int **mat = getMatrix(rows, cols);
+        vector<vector<int>> mat(rows, vector<int>(cols));
 
         for (int i = 0; i < rows; i++)
         {
@@ -92,7 +83,7 @@ namespace ariel
         return mat;
     }
 
-    void modBy2(int **mat, int rows, int cols)
+    void modBy2(vector<vector<int>> &mat, int rows, int cols)
     {
         for (int i = 0; i < rows; i++)
         {
@@ -103,34 +94,39 @@ namespace ariel
         }
     }
 
-    void freeMatrix(int **mat, int rows)
+    bool isValidSimple(char sample)
     {
-        for (int i = 0; i < rows; i++)
-        {
-            delete[] mat[i];
-        }
-        delete[] mat;
+        return !(sample < simMin || sample > simMax);
     }
 
     string mat(int cols, int rows, char sample1, char sample2)
     {
-        if (cols % 2 == 0 || rows % 2 == 0)
+
+        if (!isValidSimple(sample1) || !isValidSimple(sample2))
+        {
+            throw invalid_argument("Invaild sample");
+        }
+
+        if (cols < 0 || rows < 0)
+        {
+            throw invalid_argument("Cols & Rows cant be negative values");
+        }
+
+        if (cols % 2 == 0 || rows % 2 == 0 || cols < 0 || rows < 0)
         {
             throw invalid_argument("Mat size is always odd");
         }
 
-        int **tempMat1 = getMatrix(rows, cols);
-        int **tempMat2 = getMatrix(rows, cols);
+        vector<vector<int>> tempMat1(rows, vector<int>(cols));
+        vector<vector<int>> tempMat2(rows, vector<int>(cols));
 
         fillMatrix(tempMat1, rows, cols);
         fillMatrixReverse(tempMat2, rows, cols);
-        int **mat = mergeMatrixByMin(tempMat1, tempMat2, rows, cols);
 
-        freeMatrix(tempMat1, rows);
-        freeMatrix(tempMat2, rows);
+        vector<vector<int>> mat = mergeMatrixByMin(tempMat1, tempMat2, rows, cols);
         modBy2(mat, rows, cols);
 
-        string output = "";
+        string output;
 
         for (int i = 0; i < rows; i++)
         {
@@ -147,7 +143,6 @@ namespace ariel
             }
             output += '\n';
         }
-        freeMatrix(mat, rows);
         return output;
     }
 

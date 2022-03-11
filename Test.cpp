@@ -11,7 +11,7 @@ using namespace std;
  * Returns the input string without the whitespace characters: space, newline and tab.
  * Requires std=c++2a.
  */
-string nospaces(string input)
+string _nospaces(string input)
 {
 	std::erase(input, ' ');
 	std::erase(input, '\t');
@@ -22,7 +22,7 @@ string nospaces(string input)
 
 TEST_CASE("Good input")
 {
-	CHECK(nospaces(mat(9, 7, '@', '-')) == nospaces("@@@@@@@@@\n"
+	CHECK(_nospaces(mat(9, 7, '@', '-')) == _nospaces("@@@@@@@@@\n"
 													"@-------@\n"
 													"@-@@@@@-@\n"
 													"@-@---@-@\n"
@@ -30,13 +30,13 @@ TEST_CASE("Good input")
 													"@-------@\n"
 													"@@@@@@@@@"));
 
-	CHECK(nospaces(mat(3, 5, '@', '-')) == nospaces("@@@\n"
+	CHECK(_nospaces(mat(3, 5, '@', '-')) == _nospaces("@@@\n"
 													"@-@\n"
 													"@-@\n"
 													"@-@\n"
 													"@@@"));
 
-	CHECK(nospaces(mat(3, 9, '@', '-')) == nospaces("@@@\n"
+	CHECK(_nospaces(mat(3, 9, '@', '-')) == _nospaces("@@@\n"
 													"@-@\n"
 													"@-@\n"
 													"@-@\n"
@@ -46,7 +46,7 @@ TEST_CASE("Good input")
 													"@-@\n"
 													"@@@"));
 
-	CHECK(nospaces(mat(11, 13, '@', '@')) == nospaces("@@@@@@@@@@@\n"
+	CHECK(_nospaces(mat(11, 13, '@', '@')) == _nospaces("@@@@@@@@@@@\n"
 													  "@@@@@@@@@@@\n"
 													  "@@@@@@@@@@@\n"
 													  "@@@@@@@@@@@\n"
@@ -60,7 +60,7 @@ TEST_CASE("Good input")
 													  "@@@@@@@@@@@\n"
 													  "@@@@@@@@@@@"));
 
-	CHECK(nospaces(mat(13, 21, '*', '@')) == nospaces(
+	CHECK(_nospaces(mat(13, 21, '*', '@')) == _nospaces(
 												 "*************\n"
 												 "*@@@@@@@@@@@*"
 												 "*@*********@*"
@@ -85,7 +85,7 @@ TEST_CASE("Good input")
 
 												 ));
 
-	CHECK(nospaces(mat(21, 21, '*', '@')) == nospaces(
+	CHECK(_nospaces(mat(21, 21, '*', '@')) == _nospaces(
 												 "*********************"
 												 "*@@@@@@@@@@@@@@@@@@@*"
 												 "*@*****************@*"
@@ -108,7 +108,7 @@ TEST_CASE("Good input")
 												 "*@@@@@@@@@@@@@@@@@@@*"
 												 "*********************"));
 
-	CHECK(nospaces(mat(21, 21, '@', '*')) == nospaces(
+	CHECK(_nospaces(mat(21, 21, '@', '*')) == _nospaces(
 												 "@@@@@@@@@@@@@@@@@@@@@"
 												 "@*******************@"
 												 "@*@@@@@@@@@@@@@@@@@*@"
@@ -131,7 +131,7 @@ TEST_CASE("Good input")
 												 "@*******************@"
 												 "@@@@@@@@@@@@@@@@@@@@@"));
 
-	CHECK(nospaces(mat(1, 11, '@', '*')) == nospaces(
+	CHECK(_nospaces(mat(1, 11, '@', '*')) == _nospaces(
 												"@"
 												"@"
 												"@"
@@ -144,10 +144,10 @@ TEST_CASE("Good input")
 												"@"
 												"@"));
 
-	CHECK(nospaces(mat(11, 1, '@', '*')) == nospaces(
+	CHECK(_nospaces(mat(11, 1, '@', '*')) == _nospaces(
 												"@@@@@@@@@@@"));
 
-	CHECK(nospaces(mat(11, 15, '$', '|')) == nospaces(
+	CHECK(_nospaces(mat(11, 15, '$', '|')) == _nospaces(
 												 "$$$$$$$$$$$"
 												 "$|||||||||$"
 												 "$|$$$$$$$|$"
@@ -164,44 +164,13 @@ TEST_CASE("Good input")
 												 "$|||||||||$"
 												 "$$$$$$$$$$$"));
 
-	CHECK(nospaces(mat(15, 15, '$', ' ')) == nospaces(
-												 "$$$$$$$$$$$$$$$"
-												 "$             $"
-												 "$ $$$$$$$$$$$ $"
-												 "$ $         $ $"
-												 "$ $ $$$$$$$ $ $"
-												 "$ $ $     $ $ $"
-												 "$ $ $ $$$ $ $ $"
-												 "$ $ $ $ $ $ $ $"
-												 "$ $ $ $$$ $ $ $"
-												 "$ $ $     $ $ $"
-												 "$ $ $$$$$$$ $ $"
-												 "$ $         $ $"
-												 "$ $$$$$$$$$$$ $"
-												 "$             $"
-												 "$$$$$$$$$$$$$$$"));
 
-	CHECK(nospaces(mat(15, 15, ' ', '$')) == nospaces(
-												 "$$$$$$$$$$$$$"
-												 "$           $"
-												 "$ $$$$$$$$$ $"
-												 "$ $       $ $"
-												 "$ $ $$$$$ $ $"
-												 "$ $ $   $ $ $"
-												 "$ $ $ $ $ $ $"
-												 "$ $ $   $ $ $"
-												 "$ $ $$$$$ $ $"
-												 "$ $       $ $"
-												 "$ $$$$$$$$$ $"
-												 "$           $"
-												 "$$$$$$$$$$$$$"));
-
-	CHECK(nospaces(mat(15, 3, '`', '$')) == nospaces(
+	CHECK(_nospaces(mat(15, 3, '`', '$')) == _nospaces(
 												"```````````````"
 												"`$$$$$$$$$$$$$`"
 												"```````````````"));
 
-	CHECK(nospaces(mat(15, 5, '^', '#')) == nospaces(
+	CHECK(_nospaces(mat(15, 5, '^', '#')) == _nospaces(
 												"^^^^^^^^^^^^^^^"
 												"^#############^"
 												"^#^^^^^^^^^^^#^"
@@ -223,4 +192,8 @@ TEST_CASE("Bad input")
 	CHECK_THROWS(mat(4, 5, '@', '@'));
 
 	CHECK_THROWS(mat(2, 2, '@', '-'));
+
+	CHECK_THROWS(mat(15, 15, '$', ' '));
+
+	CHECK_THROWS(mat(15, 15, ' ', '$'));
 }
