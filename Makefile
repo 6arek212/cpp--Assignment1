@@ -13,9 +13,8 @@ run: test
 demo: Demo.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o demo
 
-#StudentTest1.o StudentTest2.o StudentTest3.o
 
-test: TestRunner.o Test.o StudentTest2.o StudentTest3.o  $(OBJECTS)
+test: TestRunner.o StudentTest1.o  StudentTest2.o StudentTest3.o  $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o test
 
 main: Main.o $(OBJECTS)
