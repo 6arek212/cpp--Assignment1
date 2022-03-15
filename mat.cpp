@@ -8,6 +8,12 @@ namespace ariel
 {
     void fillMatrix(vector<vector<int>> &mat, int rows, int cols)
     {
+        /*
+            0000
+            0111
+            0122
+            0123
+        */
         int currentCol = 0;
 
         for (int i = 0; i < rows && currentCol < cols; i++)
@@ -27,6 +33,14 @@ namespace ariel
 
     void fillMatrixReverse(vector<vector<int>> &mat, int rows, int cols)
     {
+
+        /*
+            3210
+            2210
+            1110
+            0000
+        */
+
         int p = 0;
 
         for (int i = rows - 1; i >= 0 && p < cols; i--)
