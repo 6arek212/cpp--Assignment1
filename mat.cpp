@@ -1,14 +1,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "mat.hpp"
 using namespace std;
 
 namespace ariel
 {
-
-    const int simMax = 126;
-    const int simMin = 33;
-
     void fillMatrix(vector<vector<int>> &mat, int rows, int cols)
     {
         int currentCol = 0;
@@ -99,6 +96,28 @@ namespace ariel
         return !(sample < simMin || sample > simMax);
     }
 
+    string toString(vector<vector<int>> mat, int rows, int cols, char sample1, char sample2)
+    {
+        string output;
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                if (mat[i][j] == 0)
+                {
+                    output += sample1;
+                }
+                else
+                {
+                    output += sample2;
+                }
+            }
+            output += '\n';
+        }
+        return output;
+    }
+
     string mat(int cols, int rows, char sample1, char sample2)
     {
 
@@ -125,25 +144,7 @@ namespace ariel
 
         vector<vector<int>> mat = mergeMatrixByMin(tempMat1, tempMat2, rows, cols);
         modBy2(mat, rows, cols);
-
-        string output;
-
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                if (mat[i][j] == 0)
-                {
-                    output += sample1;
-                }
-                else
-                {
-                    output += sample2;
-                }
-            }
-            output += '\n';
-        }
-        return output;
+        return toString(mat, rows, cols, sample1, sample2);
     }
 
 }
